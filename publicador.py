@@ -13,3 +13,9 @@ numeroMIDI, frecHz, notaProxima, distNotaProxima = 0, 0, 0, 0
 
 SAMPLES_PER_FFT = FRAME_SIZE * FRAMES_PER_FFT
 FREQ_STEP = float(FSAMP) / SAMPLES_PER_FFT
+
+NOTE_NAMES = 'Mi Fa Fa# Sol Sol# La La# Si Do Do# Re Re#'.split()
+
+
+def freq_to_number(f): return 64 + 12 * np.log2(f / 329.63)
+def number_to_freq(n): return 329.63 * 2.0**((n - 64) / 12.0)
