@@ -13,8 +13,21 @@ class Proceso(QObject):
   def procesoPub(self):
         publicador.PublicaNota()
 
- class Ventana(QMainWindow):
+class Ventana(QMainWindow):
   def __init__(self):
         super(Ventana, self).__init__()
-        uic.loadUi("disenofinal.ui", self)
+        uic.loadUi("disenofinal.ui", self)  
+
+        self.hilo = QThread()
+        self.proceso = Proceso()
+        self.proceso.moveToThread(self.hilo)
+        
+        self.boton.clicked.connect(self.hilo.start)
+        self.hilo.started.connect(self.proceso.procesoPub) 
+
+        self.timer = QTimer()
+        self.timer.setInterval(10)
+        self.timer.timeout.connect(self.actualizaVentana)
+        self.timer.start()
+        
 
