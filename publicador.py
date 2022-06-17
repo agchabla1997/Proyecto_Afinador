@@ -54,3 +54,12 @@ def PublicaNota():
         num_frames += 1
         global numeroMIDI, frecHz, notaProxima, distNotaProxima
         numeroMIDI, frecHz, notaProxima, distNotaProxima =  n, freq, note_name(n0), (n-n0)
+        
+        if num_frames >= FRAMES_PER_FFT:
+             print('Num MIDI {:7.2f} Frec: {:7.2f} Hz     Nota prox: {:>3s} {:+.2f}'.format( numeroMIDI, frecHz, notaProxima, distNotaProxima ))
+        global varPub   
+        varPub = numeroMIDI
+        
+        elapsed_time = time() - start_time 
+        print("Elapsed time: %0.10f seconds." % elapsed_time)
+        
