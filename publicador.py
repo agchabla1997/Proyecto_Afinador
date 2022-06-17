@@ -34,7 +34,7 @@ stream = pyaudio.PyAudio().open(format=pyaudio.paInt16,
                                 channels=1,
                                 rate=FSAMP,
                                 input=True,
-                                frames_per_buffer=FRAME_SIZE)  #PEND: este de la frecuencia de transmision??????
+                                frames_per_buffer=FRAME_SIZE)  
 
 stream.start_stream()
 window = 0.5 * (1 - np.cos(np.linspace(0, 2 * np.pi, SAMPLES_PER_FFT, False)))
