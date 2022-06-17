@@ -29,11 +29,7 @@ imax = min(SAMPLES_PER_FFT, int(np.ceil(note_to_fftbin(NOTE_MAX + 1))))
 buf = np.zeros(SAMPLES_PER_FFT, dtype=np.float32)
 num_frames = 0
 
-stream = pyaudio.PyAudio().open(format=pyaudio.paInt16,
-                                channels=1,
-                                rate=FSAMP,
-                                input=True,
-                                frames_per_buffer=FRAME_SIZE)  
+stream = pyaudio.PyAudio().open(format=pyaudio.paInt16, channels=1, rate=FSAMP, input=True, frames_per_buffer=FRAME_SIZE)  
 
 stream.start_stream()
 window = 0.5 * (1 - np.cos(np.linspace(0, 2 * np.pi, SAMPLES_PER_FFT, False)))
