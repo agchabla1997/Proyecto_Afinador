@@ -39,3 +39,18 @@ stream = pyaudio.PyAudio().open(format=pyaudio.paInt16,
 stream.start_stream()
 window = 0.5 * (1 - np.cos(np.linspace(0, 2 * np.pi, SAMPLES_PER_FFT, False)))
 print('sampling at', FSAMP, 'Hz with max resolution of', FREQ_STEP, 'Hz')
+print()
+
+def PublicaNota():	
+    while stream.is_active():
+        start_time = time()
+        buf[:-FRAME_SIZE] = buf[FRAME_SIZE:]
+        buf[-FRAME_SIZE:] = np.fromstring(stream.read(FRAME_SIZE), np.int16)
+        fft = np.fft.rfft(buf * window)
+        freq = (np.abs(fft[imin:imax]).argmax() + imin) * FREQ_STEP
+        n = freq_to_number(freq)
+        n0 = int(round(n))
+        global num_frames
+        num_frames += 1
+        global numeroMIDI, frecHz, notaProxima, distNotaProxima
+        numeroMIDI, frecHz, notaProxima, distNotaProxima =  n, freq, note_name(n0), (n-n0)
