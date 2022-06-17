@@ -62,4 +62,6 @@ def PublicaNota():
         
         elapsed_time = time() - start_time 
         print("Elapsed time: %0.10f seconds." % elapsed_time)
+ if __name__ == '__main__': 
+    PublicaNota()
         
