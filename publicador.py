@@ -19,3 +19,21 @@ NOTE_NAMES = 'Mi Fa Fa# Sol Sol# La La# Si Do Do# Re Re#'.split()
 
 def freq_to_number(f): return 64 + 12 * np.log2(f / 329.63)
 def number_to_freq(n): return 329.63 * 2.0**((n - 64) / 12.0)
+
+def note_name(n):
+    return NOTE_NAMES[n % NOTE_MIN % len(NOTE_NAMES)] + str(int(n / 12 - 1))
+def note_to_fftbin(n): return number_to_freq(n) / FREQ_STEP
+
+imin = max(0, int(np.floor(note_to_fftbin(NOTE_MIN - 1))))
+imax = min(SAMPLES_PER_FFT, int(np.ceil(note_to_fftbin(NOTE_MAX + 1))))
+buf = np.zeros(SAMPLES_PER_FFT, dtype=np.float32)
+num_frames = 0
+
+# Initialize audio
+stream = pyaudio.PyAudio().open(format=pyaudio.paInt16,
+                                channels=1,
+                                rate=FSAMP,
+                                input=True,
+                                frames_per_buffer=FRAME_SIZE)  #PEND: este de la frecuencia de transmision??????
+
+stream.start_stream()
