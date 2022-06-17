@@ -21,13 +21,21 @@ class Ventana(QMainWindow):
         self.hilo = QThread()
         self.proceso = Proceso()
         self.proceso.moveToThread(self.hilo)
-        
         self.boton.clicked.connect(self.hilo.start)
         self.hilo.started.connect(self.proceso.procesoPub) 
-
         self.timer = QTimer()
         self.timer.setInterval(10)
         self.timer.timeout.connect(self.actualizaVentana)
         self.timer.start()
-        
+   
+  def actualizaVentana(self):
+       
+        pub_numeroMIDI =  "%.2f" % (publicador.numeroMIDI) 
+        self.ResMidi.setText(str(pub_numeroMIDI)) 
+        pub_frecHz =  "%.2f" % (publicador.frecHz)
+        self.ResFrec.setText(str(pub_frecHz))
+        self.ResNota.setText(str(publicador.notaProxima))                                    
+        distNP = "%.2f" % (publicador.distNotaProxima)
+        self.ResDist.setText(str(distNP))    
+        self.verticalSlider.setValue((publicador.numeroMIDI)*10) 
 
