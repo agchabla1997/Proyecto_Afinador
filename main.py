@@ -39,3 +39,11 @@ class Ventana(QMainWindow):
         self.ResDist.setText(str(distNP))    
         self.verticalSlider.setValue((publicador.numeroMIDI)*10) 
 
+def run():
+    app = QApplication(sys.argv)
+    programa = Ventana()
+    programa.show()
+    sys.exit(app.exec_())
+    
+if __name__ == '__main__':
+    run()
